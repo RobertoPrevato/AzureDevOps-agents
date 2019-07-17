@@ -1,0 +1,1 @@
+docker build -t devopsagentubuntu:16.04 .
