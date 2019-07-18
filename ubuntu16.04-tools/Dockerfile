@@ -2,7 +2,7 @@ FROM devopsagentubuntu:16.04
 
 COPY packages /packages
 
-ENV TOOLSFOLDER=/azp/agent/_work/_tool
+ENV TOOLSFOLDER=/azp/_work/_tool
 
 RUN mkdir -p $TOOLSFOLDER
 
