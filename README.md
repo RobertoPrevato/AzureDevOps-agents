@@ -7,6 +7,14 @@ Most of the bash scripts in this repository are adopted from the official Hosted
 ## Using images from DockerHub
 These images have been published to [my DockerHub repositories](https://hub.docker.com/u/robertoprevato), and can be fetched from there.
 
+```bash
+docker pull robertoprevato/devopsubuntu16.04
+
+docker pull robertoprevato/devopsubuntu16.04-python
+
+docker pull robertoprevato/devopsubuntu16.04-docker
+```
+
 ## Building images
 You can use the provided `build.sh` file to create images on your host.
 
@@ -26,7 +34,7 @@ Create an access token in Azure DevOps, then:
 
 docker run -e AZP_URL=<YOUR-ORGANIZATION-URL> \
 -e AZP_TOKEN=<YOUR-TOKEN> \
--e AZP_AGENT_NAME='Self-hosted Ubuntu 16.04' devopsagentubuntu18:latest
+-e AZP_AGENT_NAME='Self-hosted Ubuntu 16.04' devopsubuntu16.04:latest
 
 # or, from inside the container, in /azp:
 AZP_URL=<YOUR-ORGANIZATION-URL> \
