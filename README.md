@@ -1,7 +1,14 @@
 # AzureDevOps-agents
-Images for self-hosted DevOps agents.
+Images for self-hosted DevOps agents running in Docker. The preparartion of these images has been described in this post: [Self-hosted Azure DevOps agents running in Docker](https://robertoprevato.github.io).
 
-This is a work in progress, images are not completely working yet.
+## Credit
+Most of the bash scripts in this repository are adopted from the official Hosted images prepared by Microsoft, from this repository: [https://github.com/microsoft/azure-pipelines-image-generation/](https://github.com/microsoft/azure-pipelines-image-generation/); these images feature a modified `start.sh` script that supports caching of tools and agent files across restarts, as described in the post linked above.
+
+## Using images from DockerHub
+These images have been published to [my DockerHub repositories](https://hub.docker.com/u/robertoprevato), and can be fetched from there.
+
+## Building images
+You can use the provided `build.sh` file to create images on your host.
 
 First create a base image (this works, it is as per Microsoft documentation).
 
@@ -17,13 +24,12 @@ Create an access token in Azure DevOps, then:
 
 ```bash
 
-docker run -e AZP_URL=https://<YOUR_ORG>.visualstudio.com \
+docker run -e AZP_URL=<YOUR-ORGANIZATION-URL> \
 -e AZP_TOKEN=<YOUR-TOKEN> \
 -e AZP_AGENT_NAME='Self-hosted Ubuntu 16.04' devopsagentubuntu18:latest
 
 # or, from inside the container, in /azp:
-AZP_URL=https://<YOUR_ORG>.visualstudio.com \
+AZP_URL=<YOUR-ORGANIZATION-URL> \
 AZP_TOKEN=<YOUR-TOKEN> \
 AZP_AGENT_NAME='Self-hosted Ubuntu 16.04' ./start.sh
-
 ```

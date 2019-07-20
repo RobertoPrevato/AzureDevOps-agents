@@ -1,1 +1,0 @@
-find ./scripts/ -type f -iname "*.sh" -exec chmod +x {} \;
