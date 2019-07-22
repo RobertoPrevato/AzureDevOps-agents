@@ -17,15 +17,14 @@ docker pull robertoprevato/devopsubuntu16.04-docker
 
 ## Building images
 You can use the provided `build.sh` file to create images on your host.
-
-First create a base image (this works, it is as per Microsoft documentation).
+Otherwise, first create the base image:
 
 ```
 # from Ubuntu 16.04-base:
 docker built -t devopsagentubuntu:16.04 .
 ```
 
-Then create the image with tools, that uses it.
+Then create the images with tools, that use it.
 
 ## To run the images
 Create an access token in Azure DevOps, then:
