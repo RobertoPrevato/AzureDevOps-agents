@@ -4,6 +4,7 @@ COPY scripts /scripts
 
 ENV AGENT_TOOLSDIRECTORY=/_work/_tool
 
-RUN /scripts/installers/dotnetcore-sdk.sh && \
-    /scripts/installers/powershellcore.sh && \
+RUN /scripts/installers/dotnetcore-sdk.sh
+
+RUN /scripts/installers/powershellcore.sh && \
     /scripts/installers/azpowershell.sh
