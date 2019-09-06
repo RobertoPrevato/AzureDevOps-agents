@@ -34,10 +34,18 @@ docker build -t devopsubuntu16.04-docker:latest .
 
 cd ..
 
+print_info "Building .NET Core image"
+
+cd ubuntu16.04-dotnet
+
+docker build -t devopsubuntu16.04-dotnet:latest .
+
+cd ..
+
 print_info "Building Node.js image"
 
-cd ubuntu16.04-node
+cd ubuntu16.04-nodejs
 
-docker build -t devopsubuntu16.04-node:latest
+docker build -t devopsubuntu16.04-nodejs:latest .
 
 cd ..
