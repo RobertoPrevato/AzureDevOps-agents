@@ -9,8 +9,8 @@
 source $HELPER_SCRIPTS/document.sh
 
 # Install Azure CLI (instructions taken from https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
-sudo pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_1.0.0 -RequiredVersion 1.0.0 -Force'
-sudo pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_1.6.0 -RequiredVersion 1.6.0 -Force'
+pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_1.0.0 -RequiredVersion 1.0.0 -Force'
+pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_1.6.0 -RequiredVersion 1.6.0 -Force'
 
 # Run tests to determine that the software installed as expected
 echo "Testing to make sure that script performed as expected, and basic scenarios work"

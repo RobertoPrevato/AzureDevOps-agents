@@ -1,48 +1,36 @@
 # Azure DevOps image for .NET Core workloads
-This Docker image includes `.NET Core SDK` (`dotnet-sdk-2.1=2.1.301-1`) and all SDKs listed below.
-And also: `PowerShell Core`, `Az Module`.
+This Docker image includes the .NET Core sdks listed below, and also: `PowerShell Core`, `Az Module`.
+
+**⚠️ Attention**: this image includes only most recent versions of .NET Core. If you need different versions of .NET Core SDKs, edit `dotnetcore-sdk.sh` to match your needs.
 
 ```bash
-root@cbb06c225511:/# dotnet --list-sdks
-1.0.4 [/usr/share/dotnet/sdk]
-1.1.4 [/usr/share/dotnet/sdk]
-1.1.5 [/usr/share/dotnet/sdk]
-1.1.7 [/usr/share/dotnet/sdk]
-1.1.8 [/usr/share/dotnet/sdk]
-1.1.9 [/usr/share/dotnet/sdk]
-1.1.10 [/usr/share/dotnet/sdk]
-1.1.11 [/usr/share/dotnet/sdk]
-1.1.12 [/usr/share/dotnet/sdk]
-1.1.13 [/usr/share/dotnet/sdk]
-2.0.0 [/usr/share/dotnet/sdk]
-2.0.3 [/usr/share/dotnet/sdk]
-2.1.2 [/usr/share/dotnet/sdk]
-2.1.4 [/usr/share/dotnet/sdk]
-2.1.100 [/usr/share/dotnet/sdk]
-2.1.101 [/usr/share/dotnet/sdk]
-2.1.102 [/usr/share/dotnet/sdk]
-2.1.103 [/usr/share/dotnet/sdk]
-2.1.104 [/usr/share/dotnet/sdk]
-2.1.105 [/usr/share/dotnet/sdk]
-2.1.200 [/usr/share/dotnet/sdk]
-2.1.201 [/usr/share/dotnet/sdk]
-2.1.202 [/usr/share/dotnet/sdk]
-2.1.300 [/usr/share/dotnet/sdk]
-2.1.301 [/usr/share/dotnet/sdk]
-2.1.302 [/usr/share/dotnet/sdk]
-2.1.400 [/usr/share/dotnet/sdk]
-2.1.401 [/usr/share/dotnet/sdk]
-2.1.402 [/usr/share/dotnet/sdk]
-2.1.403 [/usr/share/dotnet/sdk]
-2.1.500 [/usr/share/dotnet/sdk]
-2.1.502 [/usr/share/dotnet/sdk]
-2.1.503 [/usr/share/dotnet/sdk]
-2.1.504 [/usr/share/dotnet/sdk]
-2.1.505 [/usr/share/dotnet/sdk]
-2.2.100 [/usr/share/dotnet/sdk]
-2.2.101 [/usr/share/dotnet/sdk]
-2.2.102 [/usr/share/dotnet/sdk]
-2.2.103 [/usr/share/dotnet/sdk]
-2.2.104 [/usr/share/dotnet/sdk]
-2.2.105 [/usr/share/dotnet/sdk]
+# dotnet --info
+.NET Core SDK (reflecting any global.json):
+ Version:   2.2.401
+ Commit:    729b316c13
+
+Runtime Environment:
+ OS Name:     ubuntu
+ OS Version:  16.04
+ OS Platform: Linux
+ RID:         ubuntu.16.04-x64
+ Base Path:   /usr/share/dotnet/sdk/2.2.401/
+
+Host (useful for support):
+  Version: 2.2.6
+  Commit:  7dac9b1b51
+
+.NET Core SDKs installed:
+  2.1.100 [/usr/share/dotnet/sdk]
+  2.1.301 [/usr/share/dotnet/sdk]
+  2.2.401 [/usr/share/dotnet/sdk]
+
+.NET Core runtimes installed:
+  Microsoft.AspNetCore.All 2.1.12 [/usr/share/dotnet/shared/Microsoft.AspNetCore.All]
+  Microsoft.AspNetCore.All 2.2.6 [/usr/share/dotnet/shared/Microsoft.AspNetCore.All]
+  Microsoft.AspNetCore.App 2.1.12 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 2.2.6 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 2.0.5 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 2.1.12 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 2.2.6 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
 ```

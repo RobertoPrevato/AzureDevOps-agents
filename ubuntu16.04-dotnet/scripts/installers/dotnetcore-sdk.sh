@@ -27,25 +27,24 @@ mksamples()
 
 set -e
 
-wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-
-dpkg -i packages-microsoft-prod.deb
-
-apt-get install apt-transport-https
-
-apt-get update
-
 apt-get install dotnet-sdk-2.1=2.1.301-1
+apt-get install dotnet-sdk-2.2
 
-# Get list of all released SDKs
-release_url="https://raw.githubusercontent.com/dotnet/core/master/release-notes/releases.json"
-releases=$(curl "${release_url}")
-sdks=$(echo "${releases}" | grep version-sdk | grep -v preview | grep -v rc | grep -v display | cut -d\" -f4 | sort -u)
+#
+# Uncomment the following lines to get a bigger list, dynamically;
+#
+# release_url="https://raw.githubusercontent.com/dotnet/core/master/release-notes/releases.json"
+# releases=$(curl "${release_url}")
+# sdks=$(echo "${releases}" | grep version-sdk | grep -v preview | grep -v rc | grep -v display | cut -d\" -f4 | sort -u | grep '^2')
+
+sdks=(2.1.100 2.1.4 2.1.503 2.1.801 2.2.100 2.2.105 2.2.401)
+
 for sdk in $sdks; do
     # Glob matches dotnet-dev-1.x or dotnet-sdk-2.y
     if ! apt-get install -y --no-install-recommends "dotnet-*-$sdk"; then
         # Install manually if not in package repo
         if [[ "$sdk" =~ ^1.*$ ]]; then
+            # https://dotnet.microsoft.com/download/linux-package-manager/rhel/sdk-2.2.401
             url="https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$sdk/dotnet-dev-ubuntu.16.04-x64.$sdk.tar.gz"
         else
             url="https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$sdk/dotnet-sdk-$sdk-linux-x64.tar.gz"
@@ -56,28 +55,30 @@ for sdk in $sdks; do
 done
 
 # Download additional SDKs
-echo "Downloading release tarballs..."
-sort -u urls | xargs -n 1 -P 16 wget -q
-for tarball in *.tar.gz; do
-    dest="./tmp-$(basename -s .tar.gz $tarball)"
-    echo "Extracting $tarball to $dest"
-    mkdir "$dest" && tar -C "$dest" -xzf "$tarball"
-    rsync -qav "$dest/shared/" /usr/share/dotnet/shared/
-    rsync -qav "$dest/host/" /usr/share/dotnet/host/
-    rsync -qav "$dest/sdk/" /usr/share/dotnet/sdk/
-    rm -rf "$dest"
-    rm "$tarball"
-done
-rm urls
+if test -f "urls"; then
+    echo "Downloading release tarballs..."
+    sort -u urls | xargs -n 1 -P 16 wget -q
+    for tarball in *.tar.gz; do
+        dest="./tmp-$(basename -s .tar.gz $tarball)"
+        echo "Extracting $tarball to $dest"
+        mkdir "$dest" && tar -C "$dest" -xzf "$tarball"
+        rsync -qav "$dest/shared/" /usr/share/dotnet/shared/
+        rsync -qav "$dest/host/" /usr/share/dotnet/host/
+        rsync -qav "$dest/sdk/" /usr/share/dotnet/sdk/
+        rm -rf "$dest"
+        rm "$tarball"
+    done
+    rm urls
+fi
 
-# Smoke test each SDK
+# NB: uncomment the following lines, to smoke test all installed sdks
 for sdk in $sdks; do
-    mksamples "$sdk" "console"
-    mksamples "$sdk" "mstest"
-    mksamples "$sdk" "xunit"
-    mksamples "$sdk" "web"
-    mksamples "$sdk" "mvc"
-    mksamples "$sdk" "webapi"
+    # mksamples "$sdk" "console"
+    # mksamples "$sdk" "mstest"
+    # mksamples "$sdk" "xunit"
+    # mksamples "$sdk" "web"
+    # mksamples "$sdk" "mvc"
+    # mksamples "$sdk" "webapi"
     DocumentInstalledItem ".NET Core SDK $sdk"
 done
 
@@ -86,4 +87,3 @@ done
 echo "DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1" | tee -a /etc/environment
 echo "PATH=\"/home/vsts/.dotnet/tools:$PATH\"" | tee -a /etc/environment
 
-dotnet --info
