@@ -10,42 +10,47 @@ print_info "Making all bash scripts executable"
 
 find . -type f -iname "*.sh" -exec chmod +x {} \;
 
-print_info "Building base image"
+# Select the version you prefer, or both (16.04 18.04)
+for VERSION in 18.04
+do
 
-cd ubuntu16.04-base
+  print_info "Building base image"
 
-docker build -t devopsubuntu16.04:latest .
+  cd ubuntu$VERSION-base
 
-cd ..
+  docker build -t devopsubuntu$VERSION:latest .
 
-print_info "Building Python image"
+  cd ..
 
-cd ubuntu16.04-python
+  print_info "Building Python image"
 
-docker build -t devopsubuntu16.04-python:latest .
+  cd ubuntu$VERSION-python
 
-cd ..
+  docker build -t devopsubuntu$VERSION-python:latest .
 
-print_info "Building Docker inception image"
+  cd ..
 
-cd ubuntu16.04-docker
+  print_info "Building Docker inception image"
 
-docker build -t devopsubuntu16.04-docker:latest .
+  cd ubuntu$VERSION-docker
 
-cd ..
+  docker build -t devopsubuntu$VERSION-docker:latest .
 
-print_info "Building .NET Core image"
+  cd ..
 
-cd ubuntu16.04-dotnet
+  print_info "Building .NET Core image"
 
-docker build -t devopsubuntu16.04-dotnet:latest .
+  cd ubuntu$VERSION-dotnet
 
-cd ..
+  docker build -t devopsubuntu$VERSION-dotnet:latest .
 
-print_info "Building Node.js image"
+  cd ..
 
-cd ubuntu16.04-nodejs
+  print_info "Building Node.js image"
 
-docker build -t devopsubuntu16.04-nodejs:latest .
+  cd ubuntu$VERSION-nodejs
 
-cd ..
+  docker build -t devopsubuntu$VERSION-nodejs:latest .
+
+  cd ..
+done
