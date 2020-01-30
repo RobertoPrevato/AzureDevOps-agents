@@ -17,7 +17,11 @@ RUN apt-get update && \
     lsb-release \ 
     lsb-core \
     software-properties-common \
-    apt-transport-https
+    apt-transport-https \
+    ca-certificates \
+    gnupg \
+    sqlite \
+    sqlite3
 
 RUN /scripts/base/preparemetadata.sh && \
     /scripts/installers/basic.sh && \
