@@ -11,6 +11,7 @@ source $HELPER_SCRIPTS/document.sh
 # Install Azure CLI (instructions taken from https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_1.0.0 -RequiredVersion 1.0.0 -Force'
 pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_1.6.0 -RequiredVersion 1.6.0 -Force'
+pwsh -Command 'Install-Module -Name Az -AllowClobber -Force'
 
 # Run tests to determine that the software installed as expected
 echo "Testing to make sure that script performed as expected, and basic scenarios work"
@@ -31,3 +32,4 @@ fi
 echo "Lastly, documenting what we added to the metadata file"
 DocumentInstalledItem "Az Module (1.0.0)"
 DocumentInstalledItem "Az Module (1.6.0)"
+DocumentInstalledItem "Az Module (latest)"

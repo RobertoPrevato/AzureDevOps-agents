@@ -29,6 +29,7 @@ set -e
 
 apt-get install dotnet-sdk-2.1=2.1.301-1
 apt-get install dotnet-sdk-2.2
+apt-get install dotnet-sdk-3.1
 
 #
 # Uncomment the following lines to get a bigger list, dynamically;
