@@ -11,10 +11,9 @@ env:
   DOTNET_IMAGE_NAME: devopsubuntu18.04-dotnet
   NODEJS_IMAGE_NAME: devopsubuntu18.04-nodejs
   DOCKER_IMAGE_NAME: devopsubuntu18.04-docker
-  TAG: stage$(date +%s)${GITHUB_RUN_ID}
+  TAG: "stage$(date +%s)${GITHUB_RUN_ID}"
 
 jobs:
-
   build:
 
     runs-on: ubuntu-latest
