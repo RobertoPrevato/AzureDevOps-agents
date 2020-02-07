@@ -1,0 +1,32 @@
+name: Build Docker images
+
+on:
+  push:
+    branches:
+      - master
+      - ci
+  pull_request:
+    branches:
+      - '*'
+
+env:
+  BASE_IMAGE_NAME: devopsubuntu18.04
+  PYTHON_IMAGE_NAME: devopsubuntu18.04-python
+  DOTNET_IMAGE_NAME: devopsubuntu18.04-dotnet
+  DOCKER_IMAGE_NAME: devopsubuntu18.04-docker
+  TAG: stage$(date +%s)${GITHUB_RUN_ID}
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Make all .sh files executable
+      run: find . -type f -iname "*.sh" -exec chmod +x {} \;
+      shell: bash
+    - name: Build the base Docker image
+      run: docker build . --file Dockerfile -t $BASE_IMAGE_NAME:$TAG
+      working-directory: ./ubuntu18.04-base
