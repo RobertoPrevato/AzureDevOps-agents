@@ -11,7 +11,7 @@ env:
   DOTNET_IMAGE_NAME: devopsubuntu18.04-dotnet
   NODEJS_IMAGE_NAME: devopsubuntu18.04-nodejs
   DOCKER_IMAGE_NAME: devopsubuntu18.04-docker
-  TAG_PREFIX: stage
+  TAG: "stage$(date +%s)$GITHUB_RUN_ID"
 
 jobs:
   build:
@@ -23,11 +23,6 @@ jobs:
 
     - name: Make all .sh files executable
       run: find . -type f -iname "*.sh" -exec chmod +x {} \;
-
-    - name: Configure TAG
-      run: |
-        export TAG="$TAG_PREFIX$(date +%s)$GITHUB_RUN_ID"
-        echo "Using tag: $TAG"
 
     - name: Build the base agent image
       run: docker build -t $BASE_IMAGE_NAME:$TAG .
