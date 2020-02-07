@@ -12,6 +12,8 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock \
 -e AZP_AGENT_NAME='Ubuntu 18.04 Docker' devopsubuntu18.04-docker:latest
 ```
 
+Example organization URL: `https://dev.azure.com/organization_name/`.
+
 ## Example 2; interactive run
 ```bash
 # interactively:
