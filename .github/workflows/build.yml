@@ -26,7 +26,7 @@ jobs:
 
     - name: Configure TAG
       run: |
-        echo "::set-env name=TAG::$(date +%s)$GITHUB_RUN_ID""
+        echo "::set-env name=TAG::$(date +%s)$GITHUB_RUN_ID"
         echo "Using tag: $TAG"
 
     - name: Build the base agent image
