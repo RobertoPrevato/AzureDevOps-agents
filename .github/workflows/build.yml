@@ -1,10 +1,6 @@
-name: Build Docker images
+name: Validate Docker Files
 
 on:
-  push:
-    branches:
-      - master
-      - ci
   pull_request:
     branches:
       - '*'
@@ -13,6 +9,7 @@ env:
   BASE_IMAGE_NAME: devopsubuntu18.04
   PYTHON_IMAGE_NAME: devopsubuntu18.04-python
   DOTNET_IMAGE_NAME: devopsubuntu18.04-dotnet
+  NODEJS_IMAGE_NAME: devopsubuntu18.04-nodejs
   DOCKER_IMAGE_NAME: devopsubuntu18.04-docker
   TAG: stage$(date +%s)${GITHUB_RUN_ID}
 
@@ -24,9 +21,34 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Make all .sh files executable
       run: find . -type f -iname "*.sh" -exec chmod +x {} \;
-      shell: bash
-    - name: Build the base Docker image
-      run: docker build . --file Dockerfile -t $BASE_IMAGE_NAME:$TAG
+
+    - name: Build the base agent image
+      run: docker build -t $BASE_IMAGE_NAME:$TAG .
       working-directory: ./ubuntu18.04-base
+
+    - name: Replace FROM to use base image
+      run: sed -i "s/FROM\s.*/FROM $(BASE_IMAGE_NAME):$(TAG)/" Dockerfile
+      working-directory: ./ubuntu18.04-python
+
+    - name: Replace FROM to use base image
+      run: sed -i "s/FROM\s.*/FROM $(BASE_IMAGE_NAME):$(TAG)/" Dockerfile
+      working-directory: ./ubuntu18.04-dotnet
+
+    - name: Replace FROM to use base image
+      run: sed -i "s/FROM\s.*/FROM $(BASE_IMAGE_NAME):$(TAG)/" Dockerfile
+      working-directory: ./ubuntu18.04-docker
+
+    - name: Build the Python agent image
+      run: docker build -t $PYTHON_IMAGE_NAME:$TAG .
+      working-directory: ./ubuntu18.04-python
+
+    - name: Build the NET Core agent image
+      run: docker build -t $DOTNET_IMAGE_NAME:$TAG .
+      working-directory: ./ubuntu18.04-dotnet
+
+    - name: Build the Docker agent image
+      run: docker build -t $DOCKER_IMAGE_NAME:$TAG .
+      working-directory: ./ubuntu18.04-docker
