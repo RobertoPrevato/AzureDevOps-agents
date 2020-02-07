@@ -25,25 +25,23 @@ jobs:
       run: find . -type f -iname "*.sh" -exec chmod +x {} \;
 
     - name: Configure TAG
-      run: |
-        echo "::set-env name=TAG::$(date +%s)$GITHUB_RUN_ID"
-        echo "Using tag: $TAG"
+      run: echo "::set-env name=TAG::$TAG_PREFIX$(date +%s)$GITHUB_RUN_ID"
+
+    - name: Replace FROM to use base image
+      run: sed -i "s/FROM\s.*/FROM $BASE_IMAGE_NAME:$TAG/" Dockerfile
+      working-directory: ./ubuntu18.04-python
+
+    - name: Replace FROM to use base image
+      run: sed -i "s/FROM\s.*/FROM $BASE_IMAGE_NAME:$TAG/" Dockerfile
+      working-directory: ./ubuntu18.04-dotnet
+
+    - name: Replace FROM to use base image
+      run: sed -i "s/FROM\s.*/FROM $BASE_IMAGE_NAME:$TAG/" Dockerfile
+      working-directory: ./ubuntu18.04-docker
 
     - name: Build the base agent image
       run: docker build -t $BASE_IMAGE_NAME:$TAG .
       working-directory: ./ubuntu18.04-base
-
-    - name: Replace FROM to use base image
-      run: sed -i "s/FROM\s.*/FROM $(BASE_IMAGE_NAME):$TAG/" Dockerfile
-      working-directory: ./ubuntu18.04-python
-
-    - name: Replace FROM to use base image
-      run: sed -i "s/FROM\s.*/FROM $(BASE_IMAGE_NAME):$TAG/" Dockerfile
-      working-directory: ./ubuntu18.04-dotnet
-
-    - name: Replace FROM to use base image
-      run: sed -i "s/FROM\s.*/FROM $(BASE_IMAGE_NAME):$TAG/" Dockerfile
-      working-directory: ./ubuntu18.04-docker
 
     - name: Build the Python agent image
       run: docker build -t $PYTHON_IMAGE_NAME:$TAG .
