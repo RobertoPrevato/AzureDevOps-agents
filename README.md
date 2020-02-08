@@ -1,3 +1,5 @@
+![Validate Docker Files](https://github.com/RobertoPrevato/AzureDevOps-agents/workflows/Validate%20Docker%20Files/badge.svg)
+
 # AzureDevOps-agents
 Images for self-hosted DevOps agents running in Docker. The preparation of these images has been described in this post: [Self-hosted Azure DevOps agents running in Docker](https://robertoprevato.github.io).
 
