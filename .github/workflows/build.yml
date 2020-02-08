@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - '*'
+  schedule:
+    - cron:  '0 0 * * 0'
+
 
 env:
   BASE_IMAGE_NAME: devopsubuntu18.04
@@ -37,6 +40,10 @@ jobs:
 
     - name: Replace FROM to use base image
       run: sed -i "s/FROM\s.*/FROM $BASE_IMAGE_NAME:$TAG/" Dockerfile
+      working-directory: ./ubuntu18.04-nodejs
+
+    - name: Replace FROM to use base image
+      run: sed -i "s/FROM\s.*/FROM $BASE_IMAGE_NAME:$TAG/" Dockerfile
       working-directory: ./ubuntu18.04-docker
 
     - name: Build the base agent image
@@ -50,6 +57,10 @@ jobs:
     - name: Build the NET Core agent image
       run: docker build -t $DOTNET_IMAGE_NAME:$TAG .
       working-directory: ./ubuntu18.04-dotnet
+
+    - name: Build the Node.js agent image
+      run: docker build -t $NODEJS_IMAGE_NAME:$TAG .
+      working-directory: ./ubuntu18.04-nodejs
 
     - name: Build the Docker agent image
       run: docker build -t $DOCKER_IMAGE_NAME:$TAG .
