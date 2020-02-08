@@ -20,7 +20,7 @@ docker build -t devopsagentubuntu:18.04 .
 Then create other images that depend on it.
 
 ## Composing tools
-It is possible to create an agent with several tools, by editing the `FROM` statement as desired in the provided Dockerfiles. For example, it is possible to compose an agent with Python, .NET Core, and PowerShell Core by first building the `python` image on top of the `base` image; then building the provided `dotnet` image on top of the `python` image.
+It is possible to create an agent with several tools, by editing the `FROM` statement as desired, in the provided Dockerfiles. For example, it is possible to compose an agent with Python, .NET Core, and PowerShell Core by first building the `python` image on top of the `base` image; then building the `dotnet` image on top of the `python` image.
 
 This technique can be used in build pipelines, to compose an agent with all desired tools.
 
