@@ -1,6 +1,9 @@
 name: Validate Docker Files
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - '*'
