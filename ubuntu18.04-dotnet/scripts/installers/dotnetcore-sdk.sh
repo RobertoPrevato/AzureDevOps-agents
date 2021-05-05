@@ -30,6 +30,7 @@ set -e
 apt-get install dotnet-sdk-2.1=2.1.301-1
 apt-get install dotnet-sdk-2.2
 apt-get install dotnet-sdk-3.1
+apt-get install dotnet-sdk-5.0
 
 #
 # Uncomment the following lines to get a bigger list, dynamically;
@@ -87,4 +88,3 @@ done
 # Additional FTE will just copy to ~/.dotnet/NuGet which provides no benefit on a fungible machine
 echo "DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1" | tee -a /etc/environment
 echo "PATH=\"/home/vsts/.dotnet/tools:$PATH\"" | tee -a /etc/environment
-
